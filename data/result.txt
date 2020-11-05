@@ -1,4 +1,4 @@
-Belgien: 0
-Danmark: 0
-England: 0
-Island: 0
+Belgien 6
+Danmark 4
+England 7
+Island 0

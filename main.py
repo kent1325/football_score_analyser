@@ -10,6 +10,8 @@ def get_nations():
     with open(nations_file, "r") as f:
         nation = f.read()
     nations = nation.rstrip().split("\n")
+    nations_dict = dict.fromkeys(nations, {})
+    print(nations_dict)
     return nations
 
 
@@ -28,9 +30,9 @@ def _save_current_score_to_file(teams):
     with open(result_file, "w") as f:
         for i, team in enumerate(teams):
             if len(teams) == i + 1:
-                f.write(f"{team}: {results_list[i]}")
+                f.write(f"{team} {games_won[i]} {results_list[i]}")
             else:
-                f.write(f"{team}: {results_list[i]}\n")
+                f.write(f"{team} {results_list[i]}\n")
 
 
 def get_matches(match_files):
@@ -94,6 +96,7 @@ def update_score(matches):
     _save_current_score_to_file(teams)
 
 
-cr_result_file(get_nations())
-update_score(round_files)
+get_nations()
+#cr_result_file(get_nations())
+#update_score(round_files)
 
