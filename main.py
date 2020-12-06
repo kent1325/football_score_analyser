@@ -1,12 +1,14 @@
 import os
 import pandas as pd
 
+"""Global variables - path to files"""
 nations_file = "data/nations.txt"
 result_file = "data/results.csv"
 round_files = ["data/round1.txt", "data/round2.txt", "data/round3.txt"]
 
 
 def get_nations():
+    """Return nations from nation file"""
     with open(nations_file, "r") as f:
         nation = f.read()
     nations = nation.rstrip().split("\n")
@@ -14,6 +16,7 @@ def get_nations():
 
 
 def get_scores():
+    """Load current scores"""
     if os.path.isfile(result_file):
         df = pd.read_csv(result_file, index_col=0).sort_values("PTS", ascending=False)
     else:
@@ -26,11 +29,13 @@ def get_scores():
 
 
 def _save_current_score_to_file(df_dict):
+    """Save score to file"""
     df = pd.DataFrame.from_dict(df_dict, orient='index')
     df.to_csv(result_file)
 
 
 def get_matches(match_files):
+    """return matches played from file/(s)"""
     all_matches = []
     if isinstance(match_files, list):
         for match in match_files:
@@ -46,6 +51,7 @@ def get_matches(match_files):
 
 
 def get_winner_teams(matches):
+    """return the winner teams from the played matches."""
     winners = []
     for match in matches:
         goals_scored = _get_team_score(match, "s")
@@ -59,6 +65,7 @@ def get_winner_teams(matches):
 
 
 def _get_team_score(match, team_score):
+    """return the teams or scores from a match"""
     if team_score == "t":
         team = match.split()[:3]
         team.pop(1)
@@ -72,6 +79,7 @@ def _get_team_score(match, team_score):
 
 
 def update_scores(matches):
+    """Updates the scores from matches played"""
     for match in matches:
         competing_teams = match.split()[:3]
         competing_teams.pop(1)
@@ -125,6 +133,7 @@ def update_scores(matches):
     _save_current_score_to_file(scores_dict)
 
 
+"""Main code"""
 current_scores = get_scores()
 print(f"Scores on Load:\n{current_scores}")
 scores_dict = current_scores.to_dict('index')
