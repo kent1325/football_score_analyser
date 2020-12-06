@@ -1,3 +1,10 @@
+"""Koden er udviklet af:
+    Navn: Kent Vugs Nielsen
+    email: kniels18@student.aau.dk
+    Gruppe: A308b
+    Programmet er udviklet selvstændigt og individuelt.
+"""
+
 import os
 import pandas as pd
 
